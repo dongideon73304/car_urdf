@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="car_urdf">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00267802938233369 -8.36143291826907E-08 0.0290503422675615"
+        rpy="0 0 0" />
+      <mass
+        value="7.27297177380424" />
+      <inertia
+        ixx="0.00718750082613249"
+        ixy="2.93108378933248E-08"
+        ixz="0.000183481880866288"
+        iyy="0.0213063434769695"
+        iyz="3.17408145829774E-09"
+        izz="0.024330713862357" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.317647058823529 0.247058823529412 0.207843137254902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="fl_pin">
+    <inertial>
+      <origin
+        xyz="0.065223 0.042572 -7.9737E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.0023308" />
+      <inertia
+        ixx="1.4645E-07"
+        ixy="-6.1831E-17"
+        ixz="9.8947E-15"
+        iyy="1.4774E-07"
+        iyz="-3.4888E-15"
+        izz="9.4918E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fl_pin.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fl_pin.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_pin_j"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="fl_pin" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.6"
+      upper="0.6"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fl_wheel">
+    <inertial>
+      <origin
+        xyz="0.065223 0.051429 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.010996" />
+      <inertia
+        ixx="1.0608E-06"
+        ixy="1.8815E-23"
+        ixz="-1.1484E-22"
+        iyy="1.4334E-06"
+        iyz="-3.3728E-24"
+        izz="1.0608E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_wheeel_j"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="fl_pin" />
+    <child
+      link="fl_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_pin">
+    <inertial>
+      <origin
+        xyz="0.065223 -0.042572 7.9737E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.0023308" />
+      <inertia
+        ixx="1.4645E-07"
+        ixy="6.1831E-17"
+        ixz="-9.8947E-15"
+        iyy="1.4774E-07"
+        iyz="-3.4888E-15"
+        izz="9.4918E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fr_pin.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fr_pin.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_pin_j"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="fr_pin" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.6"
+      upper="0.6"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_wheel">
+    <inertial>
+      <origin
+        xyz="0.065223 -0.051429 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.010996" />
+      <inertia
+        ixx="1.0608E-06"
+        ixy="9.358E-23"
+        ixz="1.3852E-22"
+        iyy="1.4334E-06"
+        iyz="-1.2565E-23"
+        izz="1.0608E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fr_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/fr_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_wheel_j"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="fr_pin" />
+    <child
+      link="fr_wheel" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="rl_wheel">
+    <inertial>
+      <origin
+        xyz="-0.054777 0.048333 -6.9389E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.015904" />
+      <inertia
+        ixx="1.6595E-06"
+        ixy="-4.2486E-20"
+        ixz="-5.2716E-23"
+        iyy="1.6401E-06"
+        iyz="-1.4995E-20"
+        izz="1.6595E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/rl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/rl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rl_wheel_j"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rl_wheel" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="rr_wheel">
+    <inertial>
+      <origin
+        xyz="-0.054777 -0.048333 -6.9389E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.015904" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/rr_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://car_urdf/meshes/rr_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rr_wheel_j"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rr_wheel" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+</robot>
