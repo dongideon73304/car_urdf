@@ -1,0 +1,64 @@
+<launch>
+    <!-- Arguments for Spawn Position -->
+    <arg name="arg_x" default="0.00" />
+    <arg name="arg_y" default="0.00" />
+    <arg name="arg_z" default="0.00" />
+    <arg name="arg_R" default="0.00" />
+    <arg name="arg_P" default="0.00" />
+    <arg name="arg_Y" default="0.00" />
+
+    <!-- URDF File Path -->
+    <param name="robot_description" textfile="$(find car_urdf)/urdf/car_urdf.urdf"/>
+    
+    <!-- Gazebo World -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find gazebo_ros)/worlds/empty.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <!-- Static Transform Publisher -->
+    <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" 
+          args="0 0 0 0 0 0 base_link base_footprint 40" />
+    
+    <!-- Spawn Model -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
+          args="-x $(arg arg_x) 
+                -y $(arg arg_y) 
+                -z $(arg arg_z) 
+                -Y $(arg arg_Y) 
+                -param robot_description 
+                -urdf 
+                -model car_urdf" />
+    
+    <!-- Load Controllers -->
+    <rosparam file="$(find car_urdf)/config/car_ackerman_controller.yaml" command="load"/>
+    
+    <!-- Controller Spawner -->
+    <node name="controller_spawner" 
+          pkg="controller_manager" 
+          type="spawner" 
+          respawn="false" 
+          output="screen" 
+          args="joint_state_controller 
+                ackermann_steering_controller"/>
+    
+    <!-- Robot State Publisher -->
+    <node name="robot_state_publisher" 
+          pkg="robot_state_publisher" 
+          type="robot_state_publisher" 
+          respawn="false" 
+          output="screen"/>
+          
+          
+          
+          
+    <node
+          name="joint_state_publisher_gui"
+          pkg="joint_state_publisher_gui"
+          type="joint_state_publisher_gui" />
+</launch>
+

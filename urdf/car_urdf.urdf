@@ -6,11 +6,12 @@
   name="car_urdf">
   
   
-  <link name="world"/>
-  <joint name="base_joint" type="fixed">
-  	<parent link="world"/>
+  <link name="dummy">
+  </link>
+  <joint name="dummy_joint" type="fixed">
+  	<parent link="dummy"/>
   	<child link="base_link"/>
-  	<origin rpy="0 0 0" xyz="0.0 0.0 0.17"/>
+  	<origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
   </joint>
   
   
@@ -70,16 +71,16 @@
     name="fl_pin">
     <inertial>
       <origin
-        xyz="0 0 0"
+        xyz="1.00167027450304E-11 -0.00242832295403607 -0.00399999920262951"
         rpy="0 0 0" />
       <mass
         value="0.0023308440408083" />
       <inertia
         ixx="1.46454208894841E-07"
         ixy="-6.18313709918053E-17"
-        ixz="9.89467996740187E-15"
+        ixz="9.8946799674017E-15"
         iyy="1.47741105823912E-07"
-        iyz="-3.48879471398126E-15"
+        iyz="-3.488794713981226E-15"
         izz="9.49179293760492E-08" />
     </inertial>
     <visual>
@@ -110,7 +111,7 @@
     name="fl_pin_j"
     type="revolute">
     <origin
-      xyz="0 0 0"
+      xyz="0.065223 0.045 0.004"
       rpy="0 0 0" />
     <parent
       link="base_link" />
@@ -121,8 +122,8 @@
     <limit
       lower="-0.6"
       upper="0.6"
-      effort="0"
-      velocity="0" />
+      effort="200"
+      velocity="30" />
   </joint>
   <link
     name="fl_wheel">
@@ -133,11 +134,11 @@
       <mass
         value="0.010996" />
       <inertia
-        ixx="1.0608E-06"
+        ixx="1.06088E-06"
         ixy="2.9156E-23"
-        ixz="-1.1484E-22"
+        ixz="-1.14844E-22"
         iyy="1.4334E-06"
-        iyz="-3.7952E-24"
+        iyz="-3.79512E-24"
         izz="1.0608E-06" />
     </inertial>
     <visual>
@@ -165,7 +166,7 @@
     </collision>
   </link>
   <joint
-    name="fl_wheeel_j"
+    name="fl_wheel_j"
     type="continuous">
     <origin
       xyz="0 0.005 -0.004"
@@ -177,10 +178,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="0"
-      upper="0"
-      effort="0"
-      velocity="0" />
+      effort="200"
+      velocity="30" />
   </joint>
   <link
     name="fr_pin">
@@ -191,12 +190,12 @@
       <mass
         value="0.0023308440408083" />
       <inertia
-        ixx="1.46454208894841E-07"
-        ixy="6.18313535787126E-17"
+        ixx="1.4645420889484141E-07"
+        ixy="6.183135357871226E-17"
         ixz="-9.89467996779412E-15"
         iyy="1.47741105823912E-07"
-        iyz="-3.488794709453E-15"
-        izz="9.49179293760492E-08" />
+        iyz="-3.48879470945353E-15"
+        izz="9.491792937604992E-08" />
     </inertial>
     <visual>
       <origin
@@ -237,8 +236,8 @@
     <limit
       lower="-0.6"
       upper="0.6"
-      effort="0"
-      velocity="0" />
+      effort="200"
+      velocity="30" />
   </joint>
   <link
     name="fr_wheel">
@@ -291,7 +290,10 @@
     <child
       link="fr_wheel" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
+    <limit
+      effort="200"
+      velocity="30" />
   </joint>
   <link
     name="rl_wheel">
@@ -344,7 +346,10 @@
     <child
       link="rl_wheel" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
+    <limit
+      effort="200"
+      velocity="30" />
   </joint>
   <link
     name="rr_wheel">
@@ -353,14 +358,14 @@
         xyz="0 -0.018333 0"
         rpy="0 0 0" />
       <mass
-        value="0" />
+        value="0.015904" />
       <inertia
-        ixx="0"
-        ixy="0"
-        ixz="0"
-        iyy="0"
-        iyz="0"
-        izz="0" />
+        ixx="1.6595E-06"
+        ixy="-4.2486E-20"
+        ixz="-5.2716E-23"
+        iyy="1.6401E-06"
+        iyz="-1.4995E-20"
+        izz="1.6595E-06" />
     </inertial>
     <visual>
       <origin
@@ -373,7 +378,7 @@
       <material
         name="">
         <color
-          rgba="1 1 1 1" />
+          rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
@@ -398,6 +403,9 @@
       link="rr_wheel" />
     <axis
       xyz="0 1 0" />
+    <limit
+      effort="200"
+      velocity="30" />
   </joint>
   
   
@@ -405,52 +413,90 @@
   
   
   
+  <transmission name="fl_wheel_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="fl_wheel_j">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="fl_wheel_motor">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+  </transmission>
+  <transmission name="fr_wheel_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="fr_wheel_j">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="fr_wheel_motor">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+  </transmission>
+    
+
+  
+  <transmission name="rl_wheel_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="rl_wheel_j">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="rl_wheel_motor">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+  </transmission>
+  <transmission name="rr_wheel_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="rr_wheel_j">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="rr_wheel_motor">
+	<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+  </transmission>
   
   
   
   
-  <!-- Ackermann drive plugin -->
+  <transmission name="fl_pin_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="fl_pin_j">
+	<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="fl_pin_motor">
+	<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+  </transmission>
+  <transmission name="fr_pin_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="fr_pin_j">
+	<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="fr_pin_motor">
+	<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+  </transmission>
+  
+  
+  
+  
+  
+  
+  
   <gazebo>
-    <plugin name="gazebo_ros_ackermann_drive" filename="libgazebo_ros_ackermann_drive.so">
-      <ros>
-        <namespace>/</namespace>
-        <remapping>cmd_vel:=cmd_vel</remapping>
-        <remapping>odom:=odom</remapping>
-        <remapping>distance:=distance</remapping>
-      </ros>
-
-      <update_rate>100.0</update_rate>
-
-      <!-- Joint names -->
-      <front_left_joint>fl_wheel_joint</front_left_joint>
-      <front_right_joint>fr_wheel_joint</front_right_joint>
-      <rear_left_joint>rl_wheel_joint</rear_left_joint>
-      <rear_right_joint>rr_wheel_joint</rear_right_joint>
-      <left_steering_joint>fl_steering_joint</left_steering_joint>
-      <right_steering_joint>fr_steering_joint</right_steering_joint>
-
-      <!-- Limits -->
-      <max_steer>0.6</max_steer>
-      <max_speed>20</max_speed>
-
-      <!-- PID Controllers -->
-      <left_steering_pid_gain>1500 0 1</left_steering_pid_gain>
-      <right_steering_pid_gain>1500 0 1</right_steering_pid_gain>
-      <linear_velocity_pid_gain>1000 0 1</linear_velocity_pid_gain>
-
-      <!-- Publishing options -->
-      <publish_odom>true</publish_odom>
-      <publish_odom_tf>true</publish_odom_tf>
-      <publish_wheel_tf>true</publish_wheel_tf>
-      <publish_distance>true</publish_distance>
-
-      <odometry_frame>odom</odometry_frame>
-      <robot_base_frame>base_link</robot_base_frame>
-    </plugin>
-    
-    
-    
+	<plugin name="control" filename="libgazebo_ros_control.so">
+		<robotNamespace>/</robotNamespace>
+	</plugin>
   </gazebo>
+  
+  
+  
+  
+
 
   <!-- Material colors for Gazebo -->
   <gazebo reference="base_link">
@@ -482,6 +528,36 @@
   </gazebo>
   
   
+  <gazebo reference="base_link">
+	<selfCollide>true</selfCollide>
+  </gazebo>
   
+  <gazebo reference="fl_pin">
+	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="fr_pin">
+	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="fl_wheel">
+	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="fr_wheel">
+	<selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="rl_wheel">
+	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="rr_wheel">
+	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  
+  
+  
+
   
 </robot>

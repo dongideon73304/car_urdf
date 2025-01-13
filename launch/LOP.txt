@@ -1,0 +1,129 @@
+
+
+
+
+
+
+
+
+cm
+cs
+cd
+
+
+
+roslaunch car_urdf.launch
+
+
+rosparam load $(rospack find car_urdf)/config/car_manuel_controller.yaml
+rosrun controller_manager spawner wheel_controller steering_controller
+
+
+
+
+gotogoal.py is there but that needs more debugging
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rostopic pub /wheel_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data: [1.0, 1.0, 1.0, 1.0]" -1
+ 
+
+
+
+rostopic pub /steering_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data: [0.50, 0.50]" -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <!-- Load Controllers -->
+    <rosparam file="$(find car_urdf)/config/car_manuel_controller.yaml" command="load"/>
+
+    <!-- Controller Spawner -->
+    <node name="controller_spawner" 
+          pkg="controller_manager" 
+          type="spawner" 
+          respawn="false" 
+          output="screen" 
+          args="joint_state_controller fl_pin_j_position_controller fr_pin_j_position_controller"/>
+    
+
+
+
+
+    
+
+
+
+
+
+velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joints: 
+      - rl_wheel_j
+      - rr_wheel_j
+      - fl_wheel_j
+      - fr_wheel_j
+
+
+
+
+
+
+    
+    rl_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+    rr_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+    fl_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+    fr_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+
+
+
+
+
+
+
+
+

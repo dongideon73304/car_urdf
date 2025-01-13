@@ -1,0 +1,47 @@
+# Controller Manager Configuration
+
+
+
+
+steering_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+    - fl_pin_j
+    - fr_pin_j
+
+
+wheel_controller:
+  type: velocity_controllers/JointGroupVelocityController
+  joints:
+    - rl_wheel_j
+    - rr_wheel_j
+    - fl_wheel_j
+    - fr_wheel_j
+
+
+joint_state_controller:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+
+
+
+
+gazebo_ros_control:
+  pid_gains:
+    fl_pin_j: {p: 1.0, i: 0.1, d: 1.0}
+    fr_pin_j: {p: 1.0, i: 0.1, d: 1.0}
+    
+    rl_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+    rr_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+    fl_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+    fr_wheel_j: {p: 100.0, i: 0.1, d: 10.0}
+
+
+
+
+
+
+
+
+
+

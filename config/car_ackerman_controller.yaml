@@ -1,0 +1,52 @@
+# Controller Manager Configuration
+controller_manager:
+  joints: &joints
+    - fl_wheel_j
+    - fr_wheel_j
+    - rl_wheel_j
+    - rr_wheel_j
+    - fl_pin_j
+    - fr_pin_j
+
+# Joint State Publisher
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Ackermann Steering Controller
+ackermann_steering_controller:
+  type: ackermann_steering_controller/AckermannSteeringController
+  
+  # Wheel Joints
+  front_left_wheel_joint: fl_wheel_j
+  front_right_wheel_joint: fr_wheel_j
+  rear_left_wheel_joint: rl_wheel_j
+  rear_right_wheel_joint: rr_wheel_j
+  
+  # Steering Joints
+  front_left_steering_joint: fl_pin_j
+  front_right_steering_joint: fr_pin_j
+  
+  # Wheel Configuration
+  wheel_separation: 1.0     # Distance between left and right wheels
+  wheel_radius: 0.2         # Wheel radius
+  
+  # Limits
+  max_steering_angle: 0.6   # Maximum steering angle
+  max_speed: 20.0           # Maximum speed
+  
+  # Odometry Configuration
+  publish_rate: 50
+  enable_odom_tf: true
+  
+  # PID Gains
+  steering_pid_gains:
+    p: 1500.0
+    i: 0.0
+    d: 1.0
+  
+  velocity_pid_gains:
+    p: 1000.0
+    i: 0.0
+    d: 1.0
+
